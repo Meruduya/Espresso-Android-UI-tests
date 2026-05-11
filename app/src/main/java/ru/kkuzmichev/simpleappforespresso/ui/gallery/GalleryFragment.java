@@ -17,6 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
+import ru.kkuzmichev.simpleappforespresso.EspressoIdlingResources;
 import ru.kkuzmichev.simpleappforespresso.R;
 import ru.kkuzmichev.simpleappforespresso.databinding.FragmentGalleryBinding;
 
@@ -59,6 +60,8 @@ public class GalleryFragment extends Fragment {
 
 
     private void fakeLoadData() {
+        EspressoIdlingResources.increment(); // ← добавить сюда
+
         progressBar.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.INVISIBLE);
         Handler handler = new Handler();
@@ -68,6 +71,8 @@ public class GalleryFragment extends Fragment {
                 {
                     progressBar.setVisibility(View.INVISIBLE);
                     recyclerView.setVisibility(View.VISIBLE);
+
+                    EspressoIdlingResources.decrement(); // ← и сюда
                 }
             }
         }, 1500);
